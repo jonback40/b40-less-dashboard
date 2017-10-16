@@ -19,7 +19,6 @@ $list = array(
                 'children' => array(
                     array( 'title' => 'Common' ),
                     array( 'title' => 'Components' ),
-                    array( 'title' => 'Affix' ),
                     array( 'title' => 'ScrollTo' ),
                     array( 'title' => 'Sticky Header' ),
                     array( 'title' => 'SVG Replace' )
