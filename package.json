@@ -1,0 +1,24 @@
+{
+  "name": "b40-less-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard application used to browse and operate the JavelinCMS LESS compiler, documentation, and source code.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "homepage": "https://github.com/mattmilburn/b40-less-dashboard#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattmilburn/b40-less-dashboard.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mattmilburn/b40-less-dashboard/issues"
+  },
+  "keywords": [
+    "css",
+    "css-framework",
+    "less"
+  ],
+  "author": "Matt Milburn",
+  "license": "UNLICENSED"
+}
