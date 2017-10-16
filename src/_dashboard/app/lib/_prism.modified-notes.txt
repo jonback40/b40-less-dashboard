@@ -1,0 +1,43 @@
+// Custom download including:
+
+* clike
+* css
+* css extras
+* javascript
+* less
+* markup
+
+
+
+
+// Added the rule for javelin region tags
+Prism.languages.markup['javelin'] = /<![\w\W]*?\/!>/g;
+
+
+// Updated the regex for matching numbers in CSS to include their respective units: (i.e. match 10px instead of just the number 10)
+Prism.languages.css['number'] = /[\d%\.]+(%|ch|cm|em|ex|in|mm|ms|pc|px|pt|rem|s|vh|vw|vmax|vmin)?/;
+
+
+// Copy number rule from CSS rules to LESS rules
+Prism.languages.less['number'] = Prism.util.clone(Prism.languages.css.number);
+
+
+// Added the nested rules for "variables" inside of "atrule" matches
+Prism.languages.less['atrule'].inside['variable'] = Prism.util.clone(Prism.languages.less.variable);
+
+
+// Update the nested rules for "numbers" inside selectors (in this scenario, we're dealing with numbers inside of parentheses)
+Prism.languages.less['selector'].inside['number'] = /(?!\()-?[\d\.]+(%|ch|cm|em|ex|in|mm|ms|pc|px|pt|rem|s|vh|vw|vmax|vmin)?(?=\))/;
+
+
+// Added the nested rules for "functions" inside selectors
+Prism.languages.less['selector'].inside['function'] = Prism.util.clone(Prism.languages.less.function);
+
+
+// Added the nested rules for "mixin guards" inside selectors
+Prism.languages.less['selector'].inside['mixin-guard'] = /when/;
+
+
+// Added the nested rules for "pseudo classes and elements" inside selectors
+Prism.languages.less['selector'].inside['pseudo-class'] = Prism.util.clone(Prism.languages.css.selector.inside['pseudo-class']);
+Prism.languages.less['selector'].inside['pseudo-element'] = Prism.util.clone(Prism.languages.css.selector.inside['pseudo-element']);

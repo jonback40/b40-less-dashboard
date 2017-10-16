@@ -1,0 +1,141 @@
+<div class="app-toolbar navbar navbar-fixed-top">
+    <div class="container-fluid">
+        
+        <button type="button" class="navbar-toggle" ng-click="vm.toggleSidebar()">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        
+        <span class="navbar-brand">LESS <span class="hidden-xs">Dashboard</span></span>
+        
+        <div class="navbar-right">
+            <span class="label anim-fade hidden-xs" ng-show="vm.selectedSite === ''">Enter a sitename &rarr;</span>
+            <span class="label anim-fade" ng-show="vm.selectedSite !== ''" ng-bind="vm.selectedSite"></span>
+            
+            <button type="button" class="btn" ng-click="vm.openConfig()">
+                <span class="sr-only">Compiler Settings</span>
+                <span class="icon icon-config"></span>
+            </button>
+        </div>
+        
+    </div>
+</div>
+
+<div class="app-sidebar" ng-class="{ 'active': vm.sidebarActive }">
+    <div class="app-mode">
+        <div class="btn-group btn-group-justified">
+            <div class="btn-group" ng-class="{ 'active': $state.includes('doc') }">
+                <button type="button" class="btn btn-success" ng-click="$state.go('doc')">
+                    <span class="sr-only">View Documentation</span>
+                    <span class="icon icon-doc"></span>
+                </button>
+            </div>
+            <div class="btn-group" ng-class="{ 'active': $state.includes('src') }">
+                <button type="button" class="btn btn-success" ng-click="$state.go('src')">
+                    <span class="sr-only">View Source</span>
+                    <span class="icon icon-src"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <nav class="app-nav">
+        <div ui-view="sidebar" class="anim-switch" autoscroll="true"></div>
+    </nav>
+</div>
+
+<div class="app-receipt" ng-class="{ 'active': vm.receiptActive }">
+    <button type="button" class="btn btn-lg btn-block" ng-click="vm.compile()" ng-class="{ 'btn-success': vm.selectedTemplate === '' || vm.selectedTemplate === 'default', 'btn-primary': vm.selectedTemplate === 'mobile' }">Compile</button>
+    
+    <div class="app-receipt-meta anim-fade" ng-show="vm.compilerMeta">
+        <table class="table">
+            <colgroup>
+                <col class="col-sm-4">
+                <col class="col-sm-8">
+            </colgroup>
+            <tbody>
+                <tr ng-repeat="(key, value) in vm.compilerMeta">
+                    <th>{{key}}:</th>
+                    <td>{{value}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="app-receipt-meta anim-fade text-center" ng-show="!vm.compilerMeta">
+        <em>No meta data to display.</em>
+    </div>
+    
+    <div ng-bind-html="vm.compilerOutput | trustAsHtml"></div>
+</div>
+
+<div class="app-body">
+    <div ui-view="body" class="anim-switch" autoscroll="true"></div>
+</div>
+
+<div class="app-dialog anim-dialog" ng-show="vm.isConfiguring" ng-cloak>
+    
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="control-label col-sm-5">Site Shortname</label>
+            <div class="col-sm-7">
+                <input type="input" class="form-control" ng-model="vm.configParams.sitename" ng-keypress="vm.saveAndDismissConfig($event)">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-sm-5">Site Template</label>
+            <div class="col-sm-7">
+                <div class="btn-group btn-group-justified">
+                    <div class="btn-group active">
+                        <button type="button" class="btn" ng-click="vm.configParams.template = 'default'" ng-class="{ 'active': vm.configParams.template === 'default', 'btn-success': vm.configParams.template === 'default', 'btn-primary': vm.configParams.template === 'mobile' }">Desktop</button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn" ng-click="vm.configParams.template = 'mobile'" ng-class="{ 'active': vm.configParams.template === 'mobile', 'btn-success': vm.configParams.template === 'default', 'btn-primary': vm.configParams.template === 'mobile' }">Mobile</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-sm-5">Input Filename</label>
+            <div class="col-sm-7">
+                <input type="input" class="form-control" ng-model="vm.configParams.inputFile" ng-keypress="vm.saveAndDismissConfig($event)">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label col-sm-5">Output Filename</label>
+            <div class="col-sm-7">
+                <input type="input" class="form-control" ng-model="vm.configParams.outputFile" ng-keypress="vm.saveAndDismissConfig($event)">
+            </div>
+        </div>
+    </div>
+    
+    <hr>
+        
+    <div class="clearfix">
+        <label class="checkbox-inline pull-left">
+            <input type="checkbox" ng-model="vm.configParams.minify">
+            Minify CSS?
+        </label>
+        
+        <div class="pull-right">
+            <button type="button" class="btn btn-link" ng-click="vm.dismissConfig()">Cancel</button>
+            <button type="button" class="btn btn-success" ng-click="vm.saveAndDismissConfig()">Save Config</button>
+        </div>
+    </div>
+    
+</div>
+
+<div class="app-dialog anim-dialog" ng-show="vm.isCompiling" ng-cloak>
+    <div class="progress">
+        <div class="progress-bar progress-bar-striped active" style="width: 100%;" ng-class="{ 'progress-bar-success': vm.selectedTemplate === 'default', 'progress-bar-primary': vm.selectedTemplate === 'mobile' }"></div>
+    </div>
+    
+    <div class="text-center">Compiling...</div>
+</div>
+
+<div class="app-overlay anim-fade" ng-show="vm.dialogActive" ng-cloak></div>

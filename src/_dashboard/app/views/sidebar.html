@@ -1,0 +1,19 @@
+<div class="app-nav-group" ng-repeat="category in vm.list">
+    <h3>{{category.title}}</h3>
+    
+    <div ng-if="category.children.length">
+        <ul>
+            <li ng-repeat="section in category.children" ui-sref-active="active">
+                <a href ui-sref=".article({ path: (section.path ? section.path + '/' : '') + section.permalink })">{{section.title}}</a>
+                
+                <div ng-if="section.children.length">
+                    <ul>
+                        <li ng-repeat="topic in section.children" ui-sref-active="active">
+                            <a href ui-sref=".article({ path: (topic.path ? topic.path + '/' : '') + topic.permalink })">{{topic.title}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

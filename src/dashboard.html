@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>LESS Dashboard</title>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    
+    <link href="_dashboard/icons/apple-touch-icon-57x57.png" rel="apple-touch-icon-precomposed">
+    <link href="_dashboard/icons/apple-touch-icon-72x72.png" sizes="72x72" rel="apple-touch-icon-precomposed">
+    <link href="_dashboard/icons/apple-touch-icon-114x114.png" sizes="114x114" rel="apple-touch-icon-precomposed">
+    <link href="_dashboard/icons/apple-touch-icon-144x144.png" sizes="144x144" rel="apple-touch-icon-precomposed">
+    <link href="_dashboard/icons/favicon.ico" rel="shortcut icon">
+    
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700" rel="stylesheet">
+    <link href="_dashboard/css/bootstrap.min.css" rel="stylesheet">
+    <link href="_dashboard/css/style.css" rel="stylesheet">
+    
+    <script>
+    // Put LESS into dev mode
+    less = { env: 'development' };
+    
+    // Aggressively bust the cache
+    window.localStorage.clear();
+    window.sessionStorage.clear();
+    
+    // Originally, we were using javelincms.com to access this app. However, this domain
+    // now redirects to a page on the Back40 website, which leads to invalid relative paths
+    // in the app. As a temporary measure, we are checking the pathname in the url to make
+    // sure the user is viewing the app on the correct domain.
+    var pathname = '/public/less/dashboard.html';
+    if (window.location.pathname !== pathname) {
+        window.location = 'http://back40design.com' + pathname + window.location.hash;
+    }
+    </script>
+    
+    <!-- Dependencies -->
+    <script src="_dashboard/app/lib/angular.min.js"></script>
+    <script src="_dashboard/app/lib/angular-animate.min.js"></script>
+    <script src="_dashboard/app/lib/angular-ui-router.min.js"></script>
+    <script src="_dashboard/app/lib/less.modified.js"></script>
+    <script src="_dashboard/app/lib/yui.cssmin.js"></script>
+    <script src="_dashboard/app/lib/prism.modified.min.js"></script>
+    
+    <!-- App -->
+    <script src="_dashboard/app/app.module.js"></script>
+    
+    <!-- Core -->
+    <script src="_dashboard/app/core/app.config.js"></script>
+    <script src="_dashboard/app/core/app.filters.js"></script>
+    
+    <!-- Controllers -->
+    <script src="_dashboard/app/controllers/root.controller.js"></script>
+    <script src="_dashboard/app/controllers/sidebar.controller.js"></script>
+    <script src="_dashboard/app/controllers/article.controller.js"></script>
+    
+    <!-- Directives -->
+    <script src="_dashboard/app/directives/parsedHtml.directive.js"></script>
+    <script src="_dashboard/app/directives/prism.directive.js"></script>
+    
+    <!-- Services -->
+    <script src="_dashboard/app/services/compiler.service.js"></script>
+</head>
+
+<body ng-app="app">
+    
+    <div class="app anim-fade" ui-view ng-cloak keypressEvents></div>
+    
+</body>
+</html>
