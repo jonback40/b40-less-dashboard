@@ -1,5 +1,9 @@
 <?php
 
+if ($_SERVER['HTTP_X_FORWARDED_FOR'] !== '24.249.97.216') {
+	die('Invalid Network Access for: ' . $_SERVER['REMOTE_ADDR']);
+}
+
 // Required POST params
 $params = array('site', 'template', 'outputFile', 'content');
 
