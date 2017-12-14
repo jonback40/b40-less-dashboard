@@ -205,6 +205,8 @@
                                             message: 'CSS saved to:<pre>' + destinationPath(settings()) + '</pre>'
                                         });
                                     } else {
+                                        console.log(response.data);
+                                        
                                         // FAIL
                                         deferred.reject({
                                             title: 'Saving CSS to the server failed',
